@@ -61,18 +61,18 @@ impl Grid {
         self.numbers.iter().copied()
     }
 
-    pub fn symbol_at(&self, idx: Index) -> Option<char> {
+    pub fn symbol_at(&self, idx: &Index) -> Option<char> {
         self.symbols.get(&idx).copied()
     }
 
-    pub fn adjacent_elements(&self, idx: Index, width: usize) -> impl Iterator<Item = Index> + '_ {
+    pub fn adjacent_symbols(&self, idx: Index, width: usize) -> impl Iterator<Item = Index> + '_ {
         let generator = move || {
             let top_left = idx.left().up();
 
             // Top row
             for i in 0..width + 2 {
                 let idx = top_left.rightn(i.try_into().unwrap());
-                if self.symbol_at(idx).is_some() {
+                if self.symbol_at(&idx).is_some() {
                     yield idx;
                 }
             }
@@ -80,20 +80,20 @@ impl Grid {
             // Bottom row
             for i in 0..width + 2 {
                 let idx = top_left.downn(2).rightn(i.try_into().unwrap());
-                if self.symbol_at(idx).is_some() {
+                if self.symbol_at(&idx).is_some() {
                     yield idx;
                 }
             }
 
             // left
             let idx = top_left.downn(1);
-            if self.symbol_at(idx).is_some() {
+            if self.symbol_at(&idx).is_some() {
                 yield idx;
             }
 
             // right
             let idx = top_left.downn(1).rightn((width + 1).try_into().unwrap());
-            if self.symbol_at(idx).is_some() {
+            if self.symbol_at(&idx).is_some() {
                 yield idx;
             }
         };

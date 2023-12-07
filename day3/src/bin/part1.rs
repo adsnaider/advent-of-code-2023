@@ -8,7 +8,7 @@ fn main() {
     for (idx, num) in grid.nums() {
         let width = num.to_string().len();
 
-        if grid.adjacent_elements(idx, width).next().is_some() {
+        if grid.adjacent_symbols(idx, width).next().is_some() {
             sum += num;
         }
     }
