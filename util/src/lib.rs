@@ -1,6 +1,6 @@
 use std::{
     fs::File,
-    io::{self, BufRead, BufReader, Read},
+    io::{self, BufRead, BufReader},
 };
 
 pub fn read_input() -> impl Iterator<Item = Result<String, io::Error>> {
